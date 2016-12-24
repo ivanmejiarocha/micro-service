@@ -19,4 +19,7 @@ This is a sample that shows how to implement a micro-serivce on C++ using the C+
 
           $ make -j 8
           
-6. You'r done.
+6. On ```./build``` directory type and you should see the following output:
+
+          $ ./micro-service   
+          $ Copyright © ivmeroLabs 2016. C++ Microservice now listening for requests at: http://<your computer's IP>:6502/v1/aude/api
