@@ -157,4 +157,4 @@ The results above will depend on the system where the test is executed and pleas
                -- io.write("response: \n" .. body .. "\n---------------------------------------------\n")
             end
             
-You can copy from the results above the histogram's section following the [sample format found here](https://github.com/HdrHistogram/HdrHistogram/blob/master/GoogleChartsExample/example1.txt) and see a nice graph unsing [HdrHistogram Ploter](http://hdrhistogram.github.io/HdrHistogram/plotFiles.html).
+You can copy from the results above the histogram's section following the [sample format found here](https://github.com/HdrHistogram/HdrHistogram/blob/master/GoogleChartsExample/example1.txt), save it into a file and see a nice graph unsing [HdrHistogram Ploter](http://hdrhistogram.github.io/HdrHistogram/plotFiles.html).
