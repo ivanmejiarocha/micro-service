@@ -3,7 +3,7 @@
 //
 // MIT License
 //
-// Copyright (c) 2016 ivmeroLabs. All rights reserved.
+// Copyright (c) 2016 ivmeroLabs.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -39,5 +39,13 @@ public:
     void handlePost(http_request message) override;
     void handlePatch(http_request message) override;
     void handleDelete(http_request message) override;
-    void initRestOpHandlers() override;
+    void handleHead(http_request message) override;
+    void handleOptions(http_request message) override;
+    void handleTrace(http_request message) override;
+    void handleConnect(http_request message) override;
+    void handleMerge(http_request message) override;
+    void initRestOpHandlers() override;    
+
+private:
+    static json::value responseNotImpl(const http::method & method);
 };

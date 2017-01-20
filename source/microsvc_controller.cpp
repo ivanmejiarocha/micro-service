@@ -3,7 +3,7 @@
 //
 // MIT License
 //
-// Copyright (c) 2016 ivmeroLabs. All rights reserved.
+// Copyright (c) 2016 ivmeroLabs.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -52,33 +52,44 @@ void MicroserviceController::handleGet(http_request message) {
 }
 
 void MicroserviceController::handlePatch(http_request message) {
-    auto response = json::value::object();
-    response["serviceName"] = json::value::string("C++ Mircroservice");
-    response["http_method"] = json::value::string("PATCH");
-
-    message.reply(status_codes::NotImplemented, response);
+    message.reply(status_codes::NotImplemented, responseNotImpl(methods::PATCH));
 }
 
 void MicroserviceController::handlePut(http_request message) {
-    auto response = json::value::object();
-    response["serviceName"] = json::value::string("C++ Mircroservice");
-    response["http_method"] = json::value::string("PUT");
-
-    message.reply(status_codes::NotImplemented);
+    message.reply(status_codes::NotImplemented, responseNotImpl(methods::PUT));
 }
 
 void MicroserviceController::handlePost(http_request message) {
-    auto response = json::value::object();
-    response["serviceName"] = json::value::string("C++ Mircroservice");
-    response["http_method"] = json::value::string("POST");
-
-    message.reply(status_codes::NotImplemented);
+    message.reply(status_codes::NotImplemented, responseNotImpl(methods::POST));
 }
 
-void MicroserviceController::handleDelete(http_request message) {
-    auto response = json::value::object();
-    response["serviceName"] = json::value::string("C++ Mircroservice");
-    response["http_method"] = json::value::string("DELETE");
+void MicroserviceController::handleDelete(http_request message) {    
+    message.reply(status_codes::NotImplemented, responseNotImpl(methods::DEL));
+}
 
-    message.reply(status_codes::NotImplemented);
+void MicroserviceController::handleHead(http_request message) {
+    message.reply(status_codes::NotImplemented, responseNotImpl(methods::HEAD));
+}
+
+void MicroserviceController::handleOptions(http_request message) {
+    message.reply(status_codes::NotImplemented, responseNotImpl(methods::OPTIONS));
+}
+
+void MicroserviceController::handleTrace(http_request message) {
+    message.reply(status_codes::NotImplemented, responseNotImpl(methods::TRCE));
+}
+
+void MicroserviceController::handleConnect(http_request message) {
+    message.reply(status_codes::NotImplemented, responseNotImpl(methods::CONNECT));
+}
+
+void MicroserviceController::handleMerge(http_request message) {
+    message.reply(status_codes::NotImplemented, responseNotImpl(methods::MERGE));
+}
+
+json::value MicroserviceController::responseNotImpl(const http::method & method) {
+    auto response = json::value::object();
+    response["serviceName"] = json::value::string("C++ Mircroservice Sample");
+    response["http_method"] = json::value::string(method);
+    return response ;
 }

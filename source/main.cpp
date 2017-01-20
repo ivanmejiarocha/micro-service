@@ -3,7 +3,7 @@
 //
 // MIT License
 //
-// Copyright (c) 2016 ivmeroLabs. All rights reserved.
+// Copyright (c) 2016 ivmeroLabs.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -43,7 +43,7 @@ int main(int argc, const char * argv[]) {
     try {
         // wait for server initialization...
         server.accept().wait();
-        std::cout << "Copyright © ivmeroLabs 2016. C++ Microservice now listening for requests at: " << server.endpoint() << '\n';
+        std::cout << "Modern C++ Microservice now listening for requests at: " << server.endpoint() << '\n';
         
         InterruptHandler::waitForUserInterrupt();
 
