@@ -48,7 +48,9 @@ void MicroserviceController::handleGet(http_request message) {
             message.reply(status_codes::OK, response);
         }
     }
-    message.reply(status_codes::NotFound);
+    else {
+        message.reply(status_codes::NotFound);
+    }
 }
 
 void MicroserviceController::handlePatch(http_request message) {
