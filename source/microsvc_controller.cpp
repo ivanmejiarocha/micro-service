@@ -27,6 +27,8 @@
 #include <std_micro_service.hpp>
 #include "microsvc_controller.hpp"
 
+#include "user_manager.hpp"
+
 using namespace web;
 using namespace http;
 
@@ -47,6 +49,54 @@ void MicroserviceController::handleGet(http_request message) {
             response["status"] = json::value::string("ready!");
             message.reply(status_codes::OK, response);
         }
+        else if (path[0] == "users" && path[1] == "signon") {
+            pplx::create_task([=]() -> std::tuple<bool, UserInformation> {
+                auto headers = message.headers();
+                if (message.headers().find("Authorization") == headers.end()) 
+                    throw std::exception();
+                auto authHeader = headers["Authorization"];
+                auto credsPos = authHeader.find("Basic");
+                if (credsPos == std::string::npos) 
+                    throw std::exception();
+                
+                auto base64 = authHeader.substr(credsPos + 
+                                std::string("Basic").length() + 1);
+                if (base64.empty()) 
+                    throw std::exception();
+                auto bytes = utility::conversions::from_base64(base64);
+                std::string creds(bytes.begin(), bytes.end());
+                auto colonPos = creds.find(":");
+                if (colonPos == std::string::npos) 
+                    throw std::exception();
+                auto useremail = creds.substr(0, colonPos);
+                auto password = creds.substr(colonPos + 1, creds.size()  - colonPos - 1);            
+                        
+                UserManager users;
+                UserInformation userInfo;            
+                if (users.signOn(useremail, password, userInfo)) {
+                return std::make_tuple(true, userInfo);
+                }
+                else {
+                return std::make_tuple(false, UserInformation {});
+                }
+            })
+            .then([=](pplx::task<std::tuple<bool, UserInformation>> resultTsk) {
+                try {
+                    auto result = resultTsk.get();
+                    if (std::get<0>(result) == true) {
+                        json::value response;
+                        response["success"] = json::value::string("welcome " + std::get<1>(result).name + "!");                    
+                        message.reply(status_codes::OK, response);
+                    }
+                    else {
+                        message.reply(status_codes::Unauthorized);
+                    }
+                }
+                catch(std::exception) {
+                    message.reply(status_codes::Unauthorized);
+                }
+            });
+        }
     }
     else {
         message.reply(status_codes::NotFound);
@@ -62,7 +112,35 @@ void MicroserviceController::handlePut(http_request message) {
 }
 
 void MicroserviceController::handlePost(http_request message) {
-    message.reply(status_codes::NotImplemented, responseNotImpl(methods::POST));
+    auto path = requestPath(message);
+    if (!path.empty() && 
+         path[0] == "users" && 
+         path[1] == "signup") {
+        message.
+        extract_json().
+        then([=](json::value request) {
+            try {
+                UserInformation userInfo { 
+                    request.at("email").as_string(),
+                    request.at("password").as_string(),
+                    request.at("name").as_string(),
+                    request.at("lastName").as_string()
+                };
+                UserManager users;
+                users.signUp(userInfo);
+                json::value response;
+                response["message"] = json::value::string(
+                                        "succesful registration!");
+                message.reply(status_codes::OK, response);
+            }
+            catch(UserManagerException & e) {
+                message.reply(status_codes::BadRequest, e.what());
+            }
+            catch(json::json_exception & e) {
+                message.reply(status_codes::BadRequest);
+            }
+        });
+    }
 }
 
 void MicroserviceController::handleDelete(http_request message) {    
