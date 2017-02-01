@@ -1,6 +1,8 @@
 # micro-service
 This is a sample that shows how to implement a micro-serivce on C++ using the C++ REST SDK
 
+[![Twitter](https://img.shields.io/badge/Twitter-@iUberCoder-blue.svg?style=flat)](https://twitter.com/iUberCoder)
+
 ## How to build
 
 1. Install git, CMake, boost, openssl on your system, if you are using macOS this can be acomplished easily with the following command: 
