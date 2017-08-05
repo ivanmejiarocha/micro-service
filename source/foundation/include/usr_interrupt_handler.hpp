@@ -27,6 +27,7 @@
 #include <condition_variable>
 #include <mutex>
 #include <iostream>
+#include <signal.h>
 
 static std::condition_variable _condition;
 static std::mutex _mutex;
