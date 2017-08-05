@@ -20,7 +20,7 @@ install_cpprestsdk(){
 		export CXX=g++-4.9
 	fi
 	(cd "$restsdkBuildDir" && cmake ../Release -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF -DBUILD_SAMPLES=OFF)
-	(cd "$restsdkBuildDir" && make -j 8)
+	(cd "$restsdkBuildDir" && make)
 }
 
 mkdir -p "$libDir"
