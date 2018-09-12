@@ -15,7 +15,7 @@ if(UNIX) # Darwing or Linux
 	    list(REVERSE OPENSSL_ROOT_DIR)
 
         find_package(OpenSSL 1.0.2 REQUIRED)
-        set(OPENSSL_VERSION "1.0.2f")
+        set(OPENSSL_VERSION "1.0.2p")
     else()
         find_package(OpenSSL 1.0.1 REQUIRED)
         set(OPENSSL_VERSION "1.0.1")
@@ -59,8 +59,9 @@ set(HEADER_SEARCH_PATHS ${CPPRESTSDK_INCLUDE_DIR} ${MICROSERVICE_INCLUDE_DIR} ${
 if(APPLE)
     set(OPENSSL_LIBS "/usr/local/Cellar/openssl/${OPENSSL_VERSION}/lib/libssl.1.0.0.dylib;/usr/local/Cellar/openssl/${OPENSSL_VERSION}/lib/libcrypto.1.0.0.dylib")
     set(CPPRESTSDK_LIBRARY "${PROJECT_SOURCE_DIR}/libs/cpprestsdk/build.release/Binaries/libcpprest.a")
+    set(ZIP_LIBRARY "/usr/local/Cellar/zlib/1.2.11/lib/libz.dylib")
 
-    set(LIBRARIES_SEARCH_PATHS ${OPENSSL_LIBS} ${Boost_LIBRARIES} ${CPPRESTSDK_LIBRARY})
+    set(LIBRARIES_SEARCH_PATHS ${OPENSSL_LIBS} ${Boost_LIBRARIES} ${CPPRESTSDK_LIBRARY} ${ZIP_LIBRARY})
 else()
     set(OPENSSL_LIBS "${OPENSSL_LIBRARIES}")
     set(CPPRESTSDK_LIBRARY "${PROJECT_SOURCE_DIR}/libs/cpprestsdk/build.release/Binaries/libcpprest.a")
