@@ -30,15 +30,15 @@
 using namespace web;
 using namespace http;
 
-const std::string MicroserviceController::SERVICE_NAME = "Rest Service C++";
+const std::string RestServiceController::SERVICE_NAME = "Rest Service C++";
 
-void MicroserviceController::initRestOpHandlers() {
-    _listener.support(methods::GET, std::bind(&MicroserviceController::handleGet, this, std::placeholders::_1));
-    _listener.support(methods::PUT, std::bind(&MicroserviceController::handlePut, this, std::placeholders::_1));
-    _listener.support(methods::POST, std::bind(&MicroserviceController::handlePost, this, std::placeholders::_1));
+void RestServiceController::initRestOpHandlers() {
+    _listener.support(methods::GET, std::bind(&RestServiceController::handleGet, this, std::placeholders::_1));
+    _listener.support(methods::PUT, std::bind(&RestServiceController::handlePut, this, std::placeholders::_1));
+    _listener.support(methods::POST, std::bind(&RestServiceController::handlePost, this, std::placeholders::_1));
 }
 
-void MicroserviceController::handleGet(http_request message) {
+void RestServiceController::handleGet(http_request message) {
     auto path = requestPath(message);
     if (!path.empty()) {
         if (path.size() == 2 && path[0] == "service" && path[1] == "test") {
@@ -52,15 +52,15 @@ void MicroserviceController::handleGet(http_request message) {
     message.reply(status_codes::NotFound);
 }
 
-void MicroserviceController::handlePut(http_request message) {
+void RestServiceController::handlePut(http_request message) {
     message.reply(status_codes::NotImplemented, responseNotImpl(methods::PUT));
 }
 
-void MicroserviceController::handlePost(http_request message) {
+void RestServiceController::handlePost(http_request message) {
     message.reply(status_codes::NotImplemented, responseNotImpl(methods::POST));
 }
 
-json::value MicroserviceController::responseNotImpl(const http::method & method) {
+json::value RestServiceController::responseNotImpl(const http::method & method) {
     auto response = json::value::object();
     response["service_name"] = json::value::string(SERVICE_NAME);
     response["http_method"] = json::value::string(method);

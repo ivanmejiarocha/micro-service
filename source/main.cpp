@@ -37,13 +37,13 @@ using namespace cfx;
 int main(int argc, const char * argv[]) {
     InterruptHandler::hookSIGINT();
 
-    MicroserviceController server;
+    RestServiceController server;
     server.setEndpoint("http://host_auto_ip4:6502/v1/api");
     
     try {
         // wait for server initialization...
         server.accept().wait();
-        std::cout << "Modern C++ Microservice now listening for requests at: " << server.endpoint() << '\n';
+        std::cout << server.SERVICE_NAME << " is now listening for requests at: " << server.endpoint() << '\n';
         
         InterruptHandler::waitForUserInterrupt();
 

@@ -30,10 +30,10 @@
 
 using namespace cfx;
 
-class MicroserviceController : public BasicController, Controller {
+class RestServiceController : public BasicController, Controller {
 public:
-    MicroserviceController() : BasicController() {}
-    ~MicroserviceController() = default;
+    RestServiceController() : BasicController() {}
+    ~RestServiceController() = default;
 
     static const std::string SERVICE_NAME;
 
