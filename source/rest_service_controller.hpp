@@ -35,6 +35,8 @@ public:
     MicroserviceController() : BasicController() {}
     ~MicroserviceController() = default;
 
+    static const std::string SERVICE_NAME;
+
     void handleGet(http_request message) override;
     void handlePut(http_request message) override;
     void handlePost(http_request message) override;

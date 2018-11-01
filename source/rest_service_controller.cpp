@@ -25,10 +25,12 @@
 //
 
 #include <std_micro_service.hpp>
-#include "microsvc_controller.hpp"
+#include "rest_service_controller.hpp"
 
 using namespace web;
 using namespace http;
+
+const std::string MicroserviceController::SERVICE_NAME = "Rest Service C++";
 
 void MicroserviceController::initRestOpHandlers() {
     _listener.support(methods::GET, std::bind(&MicroserviceController::handleGet, this, std::placeholders::_1));
@@ -41,6 +43,7 @@ void MicroserviceController::handleGet(http_request message) {
     if (!path.empty()) {
         if (path.size() == 2 && path[0] == "service" && path[1] == "test") {
             auto response = json::value::object();
+            response["service_name"] = json::value::string(SERVICE_NAME);
             response["version"] = json::value::string("0.1.1");
             response["status"] = json::value::string("ready!");
             message.reply(status_codes::OK, response);
@@ -59,7 +62,7 @@ void MicroserviceController::handlePost(http_request message) {
 
 json::value MicroserviceController::responseNotImpl(const http::method & method) {
     auto response = json::value::object();
-    response["serviceName"] = json::value::string("C++ Mircroservice Sample");
+    response["service_name"] = json::value::string(SERVICE_NAME);
     response["http_method"] = json::value::string(method);
     return response ;
 }

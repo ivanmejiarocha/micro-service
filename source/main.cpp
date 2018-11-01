@@ -29,7 +29,7 @@
 #include <usr_interrupt_handler.hpp>
 #include <runtime_utils.hpp>
 
-#include "microsvc_controller.hpp"
+#include "rest_service_controller.hpp"
 
 using namespace web;
 using namespace cfx;
@@ -38,7 +38,7 @@ int main(int argc, const char * argv[]) {
     InterruptHandler::hookSIGINT();
 
     MicroserviceController server;
-    server.setEndpoint("http://host_auto_ip4:6502/v1/ivmero/api");
+    server.setEndpoint("http://host_auto_ip4:6502/v1/api");
     
     try {
         // wait for server initialization...

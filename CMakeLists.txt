@@ -22,7 +22,7 @@ if(UNIX) # Darwing or Linux
     endif()
 
 elseif(WIN32) # Windows systems including Win64.
-    message(FATAL_ERROR "-- Windows is not supported for now.")
+    message("-- Windows is not supported for now.")
 else()
     message(FATAL_ERROR "-- Unsupported platform sorry! :( ")
 endif()
@@ -45,7 +45,7 @@ endif()
 
 # source files ...
 add_executable(${PROJECT_NAME} ./source/main.cpp
-                               ./source/microsvc_controller.cpp
+        source/rest_service_controller.cpp
                                ./source/foundation/network_utils.cpp
                                ./source/foundation/basic_controller.cpp)
 
