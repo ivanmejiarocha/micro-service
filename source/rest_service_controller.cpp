@@ -45,7 +45,7 @@ void RestServiceController::handleGet(http_request message) {
             auto response = json::value::object();
             response["service_name"] = json::value::string(SERVICE_NAME);
             response["version"] = json::value::string("0.1.1");
-            response["status"] = json::value::string("ready!");
+            response["response"] = json::value::string("test!");
             message.reply(status_codes::OK, response);
         } else {
             message.reply(status_codes::NotFound, pathNotFound());
@@ -71,6 +71,7 @@ json::value RestServiceController::responseNotImpl(const http::method & method) 
     auto response = json::value::object();
     response["service_name"] = json::value::string(SERVICE_NAME);
     response["http_method"] = json::value::string(method);
+    response["response"] = json::value::string("Not Implemented");
     return response ;
 }
 
