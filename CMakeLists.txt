@@ -47,7 +47,7 @@ endif()
 add_executable(${PROJECT_NAME} ./source/main.cpp
         source/rest_service_controller.cpp
                                ./source/foundation/network_utils.cpp
-                               ./source/foundation/basic_controller.cpp)
+                               ./source/foundation/basic_controller.cpp source/request_handlers/request_handler.cpp source/request_handlers/request_handler.h)
 
 # headers search paths ...
 set(CPPRESTSDK_INCLUDE_DIR "./libs/cpprestsdk/Release/include")

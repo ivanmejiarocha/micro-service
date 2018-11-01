@@ -27,6 +27,7 @@
 #pragma once 
 
 #include <basic_controller.hpp>
+#include "request_handlers/request_handler.h"
 
 using namespace cfx;
 
@@ -35,14 +36,14 @@ public:
     RestServiceController() : BasicController() {}
     ~RestServiceController() = default;
 
-    static const std::string SERVICE_NAME;
-
     void handleGet(http_request message) override;
     void handlePut(http_request message) override;
     void handlePost(http_request message) override;
-    void initRestOpHandlers() override;    
+    void initRestOpHandlers() override;
+
+    static const std::string SERVICE_NAME;
+    static const std::string SERVICE_VERSION;
 
 private:
-    static json::value responseNotImpl(const http::method & method);
-    static json::value pathNotFound();
+    std::unique_ptr<RequestHandler> requestHandler;
 };

@@ -65,8 +65,4 @@ namespace cfx {
         return _listener.close();
     }
 
-    std::vector<utility::string_t> BasicController::requestPath(const http_request & message) {
-        auto relativePath = uri::decode(message.relative_uri().path());
-        return uri::split_path(relativePath);        
-    }
 }

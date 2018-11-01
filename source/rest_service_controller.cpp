@@ -31,53 +31,24 @@ using namespace web;
 using namespace http;
 
 const std::string RestServiceController::SERVICE_NAME = "Rest Service C++";
+const std::string RestServiceController::SERVICE_VERSION = "1.0.0";
 
 void RestServiceController::initRestOpHandlers() {
     _listener.support(methods::GET, std::bind(&RestServiceController::handleGet, this, std::placeholders::_1));
     _listener.support(methods::PUT, std::bind(&RestServiceController::handlePut, this, std::placeholders::_1));
     _listener.support(methods::POST, std::bind(&RestServiceController::handlePost, this, std::placeholders::_1));
+
+    requestHandler = std::unique_ptr<RequestHandler>(new RequestHandler(SERVICE_NAME, SERVICE_VERSION));
 }
 
 void RestServiceController::handleGet(http_request message) {
-    auto path = requestPath(message);
-    if (!path.empty()) {
-        if (path.size() == 2 && path[0] == "service" && path[1] == "test") {
-            auto response = json::value::object();
-            response["service_name"] = json::value::string(SERVICE_NAME);
-            response["version"] = json::value::string("0.1.1");
-            response["response"] = json::value::string("test!");
-            message.reply(status_codes::OK, response);
-        } else {
-            message.reply(status_codes::NotFound, pathNotFound());
-        }
-    } else {
-        auto response = json::value::object();
-        response["service_name"] = json::value::string(SERVICE_NAME);
-        response["version"] = json::value::string("0.1.1");
-        response["status"] = json::value::string("ready!");
-        message.reply(status_codes::OK, response);
-    }
+    requestHandler->handle_get_request(message);
 }
 
 void RestServiceController::handlePut(http_request message) {
-    message.reply(status_codes::NotImplemented, responseNotImpl(methods::PUT));
+    requestHandler->handle_put_request(message);
 }
 
 void RestServiceController::handlePost(http_request message) {
-    message.reply(status_codes::NotImplemented, responseNotImpl(methods::POST));
-}
-
-json::value RestServiceController::responseNotImpl(const http::method & method) {
-    auto response = json::value::object();
-    response["service_name"] = json::value::string(SERVICE_NAME);
-    response["http_method"] = json::value::string(method);
-    response["response"] = json::value::string("Not Implemented");
-    return response ;
-}
-
-json::value RestServiceController::pathNotFound() {
-    auto response = json::value::object();
-    response["service_name"] = json::value::string(SERVICE_NAME);
-    response["response"] = json::value::string("Path Not Found");
-    return response ;
+    requestHandler->handle_post_request(message);
 }
