@@ -47,9 +47,16 @@ void RestServiceController::handleGet(http_request message) {
             response["version"] = json::value::string("0.1.1");
             response["status"] = json::value::string("ready!");
             message.reply(status_codes::OK, response);
+        } else {
+            message.reply(status_codes::NotFound, pathNotFound());
         }
+    } else {
+        auto response = json::value::object();
+        response["service_name"] = json::value::string(SERVICE_NAME);
+        response["version"] = json::value::string("0.1.1");
+        response["status"] = json::value::string("ready!");
+        message.reply(status_codes::OK, response);
     }
-    message.reply(status_codes::NotFound);
 }
 
 void RestServiceController::handlePut(http_request message) {
@@ -64,5 +71,12 @@ json::value RestServiceController::responseNotImpl(const http::method & method) 
     auto response = json::value::object();
     response["service_name"] = json::value::string(SERVICE_NAME);
     response["http_method"] = json::value::string(method);
+    return response ;
+}
+
+json::value RestServiceController::pathNotFound() {
+    auto response = json::value::object();
+    response["service_name"] = json::value::string(SERVICE_NAME);
+    response["response"] = json::value::string("Path Not Found");
     return response ;
 }

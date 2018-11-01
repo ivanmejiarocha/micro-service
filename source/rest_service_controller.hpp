@@ -44,4 +44,5 @@ public:
 
 private:
     static json::value responseNotImpl(const http::method & method);
+    static json::value pathNotFound();
 };
