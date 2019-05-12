@@ -24,8 +24,8 @@
 // SOFTWARE.
 //
 
-#include "basic_controller.hpp"
-#include "network_utils.hpp"
+#include "foundation/include/basic_controller.hpp"
+#include "foundation/include/network_utils.hpp"
 
 namespace cfx {
     BasicController::BasicController() {
