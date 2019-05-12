@@ -6,30 +6,37 @@ This is a sample that shows how to implement a micro-serivce on C++ using the C+
 ## How to build
 
 1. Install git, CMake, python3 on your system
+
           $ brew install cmake git python3      # for macOS
           $ sudo apt install cmake git python3  # for Debian based Linux
           
 2. Install conan to use it to retrieve dependent libraries.
+
           $ pip3 install conan
 
 3. Add remotes for conan containing required libraries.
+
           $ conan remote add conan-center https://conan.bintray.com                             # For OpenSSL, zlib
           $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan # For boost and cpprestsdk and other sub-dependencies
 
 4. Clone the repository.
 5. Go to the directory micro-service and type the following commands (**Replace 'Debug' by 'Release' when you want to run benchmarks**):
+
           $ mkdir build && cd build
           $ conan install ../
           $ cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ..
           
 6. Finally type the command:
+
           $ make -j
           
 7. On ```./build``` directory type and you should see the following output:
+
           $ ./micro-service   
           $ Modern C++ Microservice now listening for requests at: http://<your computer's IP>:6502/v1/ivmero/api
              
 8. To perform a benchmark on the Modern C++ Microservice I had included two **lua** scritps which can be executed using [WRK2](https://github.com/giltene/wrk2) HTTP Benckmark Tool, using the following command:
+
           $ ./wrk -c100 -t8 -d60s -s benchmark_microsvc.lua http://192.168.100.6:6502 --latency --rate 2000
           
    and see results similar to these:
