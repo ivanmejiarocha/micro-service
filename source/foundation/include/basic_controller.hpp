@@ -41,7 +41,7 @@ namespace cfx {
 
     public:
         BasicController();
-        ~BasicController();
+        virtual ~BasicController();
 
         void setEndpoint(const std::string & value);
         std::string endpoint() const;
