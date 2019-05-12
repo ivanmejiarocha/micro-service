@@ -1,0 +1,15 @@
+[requires]
+
+[build_requires]
+boost_system/1.69.0@bincrafters/stable
+boost_thread/1.69.0@bincrafters/stable
+boost_log/1.69.0@bincrafters/stable
+boost_program_options/1.69.0@bincrafters/stable
+boost_chrono/1.69.0@bincrafters/stable
+cpprestsdk/2.10.10@bincrafters/stable
+
+[generators]
+cmake
+
+[options]
+*:shared=False

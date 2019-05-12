@@ -24,7 +24,7 @@
 // SOFTWARE.
 //
 
-#include "network_utils.hpp"
+#include "foundation/include/network_utils.hpp"
 
 namespace cfx {
 

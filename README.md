@@ -5,28 +5,37 @@ This is a sample that shows how to implement a micro-serivce on C++ using the C+
 
 ## How to build
 
-1. Install git, CMake, boost, openssl on your system, if you are using macOS this can be acomplished easily with the following command: 
+1. Install git, CMake, python3 on your system
 
-          $ brew install cmake git openssl boost zlib
+          $ brew install cmake git python3      # for macOS
+          $ sudo apt install cmake git python3  # for Debian based Linux
           
-2. Clone the repository.
-3. Go to the directory micro-service/libs and execute the script: ```./build_dependencies.sh``` that'll clone the [C++ REST SDK](https://github.com/Microsoft/cpprestsdk) repository and will build the static version of the library, if you want to build the dynamic link version of the library just on the **build_dependencies.sh** script remove the flag: ```-DBUILD_SHARED_LIBS=OFF```.
-4. Go to the directory micro-service and type the following commands:
+2. Install conan to use it to retrieve dependent libraries.
 
-          $ mkdir build
-          $ cd build
+          $ pip3 install conan
+
+3. Add remotes for conan containing required libraries.
+
+          $ conan remote add conan-center https://conan.bintray.com                             # For OpenSSL, zlib
+          $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan # For boost and cpprestsdk and other sub-dependencies
+
+4. Clone the repository.
+5. Go to the directory micro-service and type the following commands (**Replace 'Debug' by 'Release' when you want to run benchmarks**):
+
+          $ mkdir build && cd build
+          $ conan install ../
           $ cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ..
           
-5. Finally type the command:
+6. Finally type the command:
 
-          $ make -j 8
+          $ make -j
           
-6. On ```./build``` directory type and you should see the following output:
+7. On ```./build``` directory type and you should see the following output:
 
           $ ./micro-service   
           $ Modern C++ Microservice now listening for requests at: http://<your computer's IP>:6502/v1/ivmero/api
              
-7. To perform a benchmark on the Modern C++ Microservice I had included two **lua** scritps which can be executed using [WRK2](https://github.com/giltene/wrk2) HTTP Benckmark Tool, using the following command:
+8. To perform a benchmark on the Modern C++ Microservice I had included two **lua** scritps which can be executed using [WRK2](https://github.com/giltene/wrk2) HTTP Benckmark Tool, using the following command:
 
           $ ./wrk -c100 -t8 -d60s -s benchmark_microsvc.lua http://192.168.100.6:6502 --latency --rate 2000
           
