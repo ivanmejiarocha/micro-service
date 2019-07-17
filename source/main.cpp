@@ -50,7 +50,7 @@ int main(int argc, const char * argv[]) {
         server.shutdown().wait();
     }
     catch(std::exception & e) {
-        std::cerr << "somehitng wrong happen! :(" << '\n';
+        std::cerr << "something wrong happen! :(" << '\n';
     }
     catch(...) {
         RuntimeUtils::printStackTrace();
