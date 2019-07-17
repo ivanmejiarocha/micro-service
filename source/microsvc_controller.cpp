@@ -91,7 +91,7 @@ void MicroserviceController::handleMerge(http_request message) {
 
 json::value MicroserviceController::responseNotImpl(const http::method & method) {
     auto response = json::value::object();
-    response["serviceName"] = json::value::string("C++ Mircroservice Sample");
+    response["serviceName"] = json::value::string("C++ Microservice Sample");
     response["http_method"] = json::value::string(method);
     return response ;
 }
