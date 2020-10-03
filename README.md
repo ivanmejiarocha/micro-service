@@ -10,6 +10,8 @@ This is a sample that shows how to implement a micro-serivce on C++ using the C+
           $ brew install cmake git openssl boost zlib
           
 2. Clone the repository.
+3. Execute the below command:
+          $ export OPENSSL_ROOT_DIR=/usr/local/opt/openssl
 3. Go to the directory micro-service/libs and execute the script: ```./build_dependencies.sh``` that'll clone the [C++ REST SDK](https://github.com/Microsoft/cpprestsdk) repository and will build the static version of the library, if you want to build the dynamic link version of the library just on the **build_dependencies.sh** script remove the flag: ```-DBUILD_SHARED_LIBS=OFF```.
 4. Go to the directory micro-service and type the following commands:
 

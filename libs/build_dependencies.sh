@@ -2,6 +2,7 @@
 
 RESTSDK_VERSION="v2.10.6"
 DEFAULT_LIB_DIRECTORY_PATH="."
+OPENSSL_ROOT_DIR="/usr/local/opt/openssl"
 
 libDir=${1:-$DEFAULT_LIB_DIRECTORY_PATH}
 
@@ -14,7 +15,7 @@ install_cpprestsdk(){
    fi
    
 	git clone https://github.com/Microsoft/cpprestsdk.git "$restsdkDir"
-	(cd $restsdkDir && git checkout tags/$RESTSDK_VERSION -b $RESTSDK_VERSION)
+	(cd $restsdkDir && git submodule update --init && git checkout tags/$RESTSDK_VERSION -b $RESTSDK_VERSION)
 	mkdir "$restsdkBuildDir"
 	if [[ "$OSTYPE" == "linux-gnu" ]]; then
 		export CXX=g++-4.9
