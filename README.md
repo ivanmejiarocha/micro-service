@@ -10,23 +10,27 @@ This is a sample that shows how to implement a micro-serivce on C++ using the C+
           $ brew install cmake git openssl boost zlib
           
 2. Clone the repository.
-3. Go to the directory micro-service/libs and execute the script: ```./build_dependencies.sh``` that'll clone the [C++ REST SDK](https://github.com/Microsoft/cpprestsdk) repository and will build the static version of the library, if you want to build the dynamic link version of the library just on the **build_dependencies.sh** script remove the flag: ```-DBUILD_SHARED_LIBS=OFF```.
-4. Go to the directory micro-service and type the following commands:
+3. Execute the below command: 
+
+          $ export OPENSSL_ROOT_DIR=/usr/local/opt/openssl
+          
+4. Go to the directory micro-service/libs and execute the script: ```./build_dependencies.sh``` that'll clone the [C++ REST SDK](https://github.com/Microsoft/cpprestsdk) repository and will build the static version of the library, if you want to build the dynamic link version of the library just on the **build_dependencies.sh** script remove the flag: ```-DBUILD_SHARED_LIBS=OFF```.
+5. Go to the directory micro-service and type the following commands:
 
           $ mkdir build
           $ cd build
           $ cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug ..
           
-5. Finally type the command:
+6. Finally type the command:
 
           $ make -j 8
           
-6. On ```./build``` directory type and you should see the following output:
+7. On ```./build``` directory type and you should see the following output:
 
           $ ./micro-service   
           $ Modern C++ Microservice now listening for requests at: http://<your computer's IP>:6502/v1/ivmero/api
              
-7. To perform a benchmark on the Modern C++ Microservice I had included two **lua** scritps which can be executed using [WRK2](https://github.com/giltene/wrk2) HTTP Benckmark Tool, using the following command:
+8. To perform a benchmark on the Modern C++ Microservice I had included two **lua** scritps which can be executed using [WRK2](https://github.com/giltene/wrk2) HTTP Benckmark Tool, using the following command:
 
           $ ./wrk -c100 -t8 -d60s -s benchmark_microsvc.lua http://192.168.100.6:6502 --latency --rate 2000
           
