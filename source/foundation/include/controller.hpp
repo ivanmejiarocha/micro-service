@@ -39,6 +39,7 @@ namespace cfx {
     */
     class Controller {
     public: 
+        virtual ~Controller() = default;
         virtual void handleGet(http_request message) = 0;
         virtual void handlePut(http_request message) = 0;
         virtual void handlePost(http_request message) = 0;
