@@ -35,7 +35,7 @@ namespace cfx {
 
    /*!
     * Dispatcher class represents the basic interface for a 
-    * web serivce handler.
+    * web service handler.
     */
     class Controller {
     public: 
